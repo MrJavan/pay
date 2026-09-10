@@ -1,0 +1,949 @@
+```html
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>حمایت مالی - BaxParsi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Vazirmatn', sans-serif; }
+
+  body {
+    background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0f1428 100%);
+    color: #e0e0e0;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(0,123,255,0.08) 0%, transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(0,200,150,0.06) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ===== NAVBAR ===== */
+  .navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: rgba(10, 14, 39, 0.6);
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+  }
+
+  .navbar::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(79,172,254,0.07), transparent 35%, transparent 65%, rgba(0,200,150,0.07));
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .nav-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: #fff;
+    font-weight: 800;
+    font-size: 17px;
+    flex-shrink: 0;
+  }
+
+  .logo-img {
+    width: 38px; height: 38px;
+    border-radius: 11px;
+    object-fit: cover;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.04);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+    flex-shrink: 0;
+  }
+
+  .logo-text {
+    background: linear-gradient(135deg, #fff, #a5f3fc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    list-style: none;
+    margin: 0; padding: 0;
+    flex-shrink: 0;
+  }
+
+  .nav-links a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 38px;
+    padding: 0 14px;
+    border-radius: 10px;
+    color: #c8d0e0;
+    text-decoration: none;
+    font-size: 13.5px;
+    font-weight: 500;
+    border: 1px solid transparent;
+    transition: all 0.25s ease;
+    white-space: nowrap;
+  }
+
+  .nav-links a:hover {
+    color: #fff;
+    background: rgba(255,255,255,0.06);
+    border-color: rgba(255,255,255,0.08);
+    transform: translateY(-1px);
+  }
+
+  .nav-links a.active {
+    color: #00f2fe;
+    background: linear-gradient(135deg, rgba(0,200,150,0.14), rgba(79,172,254,0.14));
+    border-color: rgba(0,200,150,0.28);
+    box-shadow: 0 6px 16px rgba(0,200,150,0.12);
+  }
+
+  .menu-toggle {
+    display: none;
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.05);
+    color: #fff;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s ease;
+    flex-shrink: 0;
+  }
+
+  .menu-toggle:hover {
+    background: rgba(255,255,255,0.09);
+    border-color: rgba(0,242,254,0.25);
+  }
+
+  .menu-toggle svg { width: 20px; height: 20px; }
+  .icon-close { display: none; }
+  .menu-toggle.open .icon-open { display: none; }
+  .menu-toggle.open .icon-close { display: block; }
+
+  /* ===== MAIN ===== */
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero { text-align: center; padding: 30px 20px 10px; }
+
+  .badge {
+    display: inline-block;
+    background: rgba(0,200,150,0.12);
+    border: 1px solid rgba(0,200,150,0.3);
+    color: #00c896;
+    padding: 6px 18px;
+    border-radius: 20px;
+    font-size: 13px;
+    margin-bottom: 18px;
+  }
+
+  h1 {
+    font-size: 36px;
+    font-weight: 800;
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 12px;
+    line-height: 1.4;
+  }
+
+  .subtitle {
+    font-size: 15px;
+    color: #a0a8c0;
+    max-width: 650px;
+    margin: 0 auto;
+    line-height: 1.9;
+  }
+
+  /* ===== LAYOUT ===== */
+  .donate-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-top: 40px;
+    align-items: start;
+  }
+
+  /* ===== DONATION FORM ===== */
+  .donate-card {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 18px;
+    padding: 30px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .donate-card::before {
+    content: '';
+    position: absolute;
+    top: -40%; right: -20%;
+    width: 250px; height: 250px;
+    background: radial-gradient(circle, rgba(0,200,150,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .donate-card-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+
+  .donate-card-icon {
+    width: 42px; height: 42px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(0,200,150,0.2), rgba(79,172,254,0.2));
+    border: 1px solid rgba(0,200,150,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+  }
+
+  .donate-card-sub {
+    font-size: 13px;
+    color: #7a8299;
+    margin-bottom: 25px;
+    line-height: 1.7;
+  }
+
+  .form-group {
+    margin-bottom: 18px;
+  }
+
+  .form-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #c8d0e0;
+    margin-bottom: 8px;
+  }
+
+  .form-input {
+    width: 100%;
+    padding: 12px 16px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px;
+    color: #fff;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.3s ease;
+    font-family: 'Vazirmatn', sans-serif;
+  }
+
+  .form-input:focus {
+    border-color: rgba(0,200,150,0.4);
+    background: rgba(255,255,255,0.06);
+    box-shadow: 0 0 0 3px rgba(0,200,150,0.08);
+  }
+
+  .form-input::placeholder { color: #6b7290; }
+
+  /* Amount presets */
+  .amount-presets {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .amount-btn {
+    padding: 10px 8px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 8px;
+    color: #c8d0e0;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    font-family: 'Vazirmatn', sans-serif;
+    text-align: center;
+  }
+
+  .amount-btn:hover {
+    background: rgba(0,200,150,0.08);
+    border-color: rgba(0,200,150,0.25);
+    color: #fff;
+  }
+
+  .amount-btn.selected {
+    background: rgba(0,200,150,0.15);
+    border-color: rgba(0,200,150,0.4);
+    color: #00f2fe;
+  }
+
+  .amount-input-wrap {
+    position: relative;
+  }
+
+  .amount-input-wrap .form-input {
+    padding-left: 50px;
+  }
+
+  .amount-unit {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 12px;
+    color: #6b7290;
+    font-weight: 600;
+  }
+
+  .submit-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: linear-gradient(135deg, #00c896 0%, #00a8e8 100%);
+    color: #fff;
+    padding: 14px;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 24px rgba(0,200,150,0.25);
+    font-family: 'Vazirmatn', sans-serif;
+    margin-top: 10px;
+  }
+
+  .submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(0,200,150,0.4);
+  }
+
+  .submit-btn:active { transform: translateY(0); }
+
+  .submit-btn svg { width: 20px; height: 20px; fill: #fff; }
+
+  .zarinpal-note {
+    text-align: center;
+    margin-top: 14px;
+    font-size: 11px;
+    color: #6b7290;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .zarinpal-note svg { width: 14px; height: 14px; fill: #6b7299; }
+
+  /* ===== TOP DONORS ===== */
+  .donors-card {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 18px;
+    padding: 30px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .donors-card::before {
+    content: '';
+    position: absolute;
+    top: -40%; left: -20%;
+    width: 250px; height: 250px;
+    background: radial-gradient(circle, rgba(255,215,0,0.05) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .donors-card-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 25px;
+  }
+
+  .donors-card-icon {
+    width: 42px; height: 42px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(255,215,0,0.15), rgba(255,165,0,0.1));
+    border: 1px solid rgba(255,215,0,0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+  }
+
+  /* Podium mini */
+  .donors-podium {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr 1fr;
+    gap: 10px;
+    align-items: end;
+    margin-bottom: 25px;
+  }
+
+  .donor-podium-card {
+    position: relative;
+    border-radius: 14px;
+    padding: 20px 12px 16px;
+    text-align: center;
+    transition: transform 0.3s ease;
+  }
+
+  .donor-podium-card:hover { transform: translateY(-4px); }
+
+  .donor-podium-card.gold {
+    background: linear-gradient(160deg, rgba(255,215,0,0.1) 0%, rgba(255,165,0,0.04) 100%);
+    border: 1.5px solid rgba(255,215,0,0.35);
+    padding-top: 36px;
+    z-index: 2;
+  }
+
+  .donor-podium-card.silver {
+    background: linear-gradient(160deg, rgba(192,192,192,0.08) 0%, rgba(148,163,184,0.04) 100%);
+    border: 1.5px solid rgba(192,192,192,0.25);
+  }
+
+  .donor-podium-card.bronze {
+    background: linear-gradient(160deg, rgba(205,127,50,0.08) 0%, rgba(180,83,9,0.04) 100%);
+    border: 1.5px solid rgba(205,127,50,0.25);
+  }
+
+  .donor-rank-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 800;
+    color: #fff;
+    z-index: 3;
+  }
+
+  .gold .donor-rank-badge { background: linear-gradient(135deg, #ffd700, #f59e0b); box-shadow: 0 3px 12px rgba(255,215,0,0.4); }
+  .silver .donor-rank-badge { background: linear-gradient(135deg, #e2e8f0, #94a3b8); box-shadow: 0 3px 12px rgba(192,192,192,0.3); }
+  .bronze .donor-rank-badge { background: linear-gradient(135deg, #f59e0b, #b45309); box-shadow: 0 3px 12px rgba(205,127,50,0.3); }
+
+  .donor-crown {
+    position: absolute;
+    top: -38px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 24px;
+    z-index: 3;
+    animation: crownFloat 2.5s ease-in-out infinite;
+    filter: drop-shadow(0 3px 6px rgba(255,215,0,0.4));
+  }
+
+  @keyframes crownFloat {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(-4px); }
+  }
+
+  .donor-avatar {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    margin: 0 auto 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  .gold .donor-avatar { background: linear-gradient(135deg, #ffd700, #f59e0b); box-shadow: 0 4px 16px rgba(255,215,0,0.3); }
+  .silver .donor-avatar { background: linear-gradient(135deg, #e2e8f0, #94a3b8); box-shadow: 0 4px 16px rgba(192,192,192,0.2); }
+  .bronze .donor-avatar { background: linear-gradient(135deg, #f59e0b, #b45309); box-shadow: 0 4px 16px rgba(205,127,50,0.2); }
+
+  .donor-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 4px;
+    direction: ltr;
+  }
+
+  .donor-amount {
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .gold .donor-amount { color: #ffd700; }
+  .silver .donor-amount { color: #e2e8f0; }
+  .bronze .donor-amount { color: #f59e0b; }
+
+  /* Donors list */
+  .donors-list-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #a0a8c0;
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .donors-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .donor-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.04);
+    border-radius: 10px;
+    transition: all 0.25s ease;
+  }
+
+  .donor-row:hover {
+    background: rgba(0,200,150,0.04);
+    border-color: rgba(0,200,150,0.12);
+  }
+
+  .donor-row-rank {
+    width: 26px; height: 26px;
+    border-radius: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    color: #a0a8c0;
+    flex-shrink: 0;
+  }
+
+  .donor-row-avatar {
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    color: #fff;
+    background: linear-gradient(135deg, rgba(79,172,254,0.3), rgba(0,200,150,0.3));
+    border: 1px solid rgba(79,172,254,0.2);
+    flex-shrink: 0;
+  }
+
+  .donor-row-info { flex: 1; min-width: 0; }
+
+  .donor-row-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    direction: ltr;
+    text-align: right;
+  }
+
+  .donor-row-amount {
+    font-size: 12px;
+    color: #00c896;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .menu-toggle { display: flex; }
+
+    .nav-links {
+      position: absolute;
+      top: 100%;
+      right: 0; left: 0;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 4px;
+      padding: 12px 16px 16px;
+      background: rgba(10, 14, 39, 0.92);
+      backdrop-filter: blur(20px) saturate(140%);
+      -webkit-backdrop-filter: blur(20px) saturate(140%);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+      transform: translateY(-10px);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .nav-links.open {
+      transform: translateY(0);
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .nav-links a {
+      justify-content: center;
+      min-height: 44px;
+      font-size: 14px;
+    }
+  }
+
+  @media (max-width: 850px) {
+    .donate-layout {
+      grid-template-columns: 1fr;
+      gap: 25px;
+    }
+  }
+
+  @media (max-width: 700px) {
+    h1 { font-size: 26px; }
+    .subtitle { font-size: 14px; }
+    .container { padding: 20px 15px; }
+    .hero { padding: 20px 10px 15px; }
+    .donate-card, .donors-card { padding: 20px; }
+    .donors-podium { gap: 8px; }
+    .donor-podium-card { padding: 16px 8px 12px; }
+    .gold.donor-podium-card { padding-top: 32px; }
+    .donor-avatar { width: 36px; height: 36px; font-size: 15px; }
+    .donor-crown { top: -32px; font-size: 20px; }
+    .amount-presets { grid-template-columns: repeat(3, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="logo">
+      <img src="logo.gif" alt="BaxParsi Logo" class="logo-img">
+      <span class="logo-text">بکس پارسی</span>
+    </a>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">صفحه اصلی</a></li>
+      <li><a href="servers.html">کاربران برتر</a></li>
+      <li><a href="register.html">رفع بلاک لیست</a></li>
+      <li><a href="rules.html">قوانین سرور</a></li>
+      <li><a href="donate.html" class="active">حمایت مالی</a></li>
+      <li><a href="contact.html">تماس با ما</a></li>
+    </ul>
+
+    <button class="menu-toggle" id="menuToggle" onclick="toggleMenu()">
+      <svg class="icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <line x1="3" y1="6" x2="21" y2="6"/>
+        <line x1="3" y1="12" x2="21" y2="12"/>
+        <line x1="3" y1="18" x2="21" y2="18"/>
+      </svg>
+      <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <line x1="18" y1="6" x2="6" y2="18"/>
+        <line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+  </div>
+</nav>
+
+<!-- ===== MAIN ===== -->
+<div class="container">
+
+  <section class="hero">
+    <span class="badge">💚 حمایت از BaxParsi</span>
+    <h1>حمایت مالی از سرور</h1>
+    <p class="subtitle">با حمایت شما، سرور BaxParsi بهتر و قوی‌تر می‌شه. هر مبلغی، هرچند کم، ارزشمنده و به ما انگیزه میده تا ادامه بدیم.</p>
+  </section>
+
+  <div class="donate-layout">
+
+    <!-- ===== فرم پرداخت ===== -->
+    <div class="donate-card">
+      <div class="donate-card-title">
+        <div class="donate-card-icon">💰</div>
+        <span>پرداخت حمایتی</span>
+      </div>
+      <p class="donate-card-sub">مبلغ مورد نظر رو انتخاب کنید و از طریق درگاه زرین‌پال پرداخت انجام بدید.</p>
+
+      <form id="donateForm" action="https://www.zarinpal.com/pg/StartTransaction/Merchant/5f2cbfdb-3be6-4e6f-b5dc-f9e94b43236f" method="POST">
+
+        <!-- Amount Presets -->
+        <div class="form-group">
+          <label class="form-label">مبلغ حمایت (تومان)</label>
+          <div class="amount-presets">
+            <button type="button" class="amount-btn" onclick="setAmount(100000, this)">۱۰۰ هزار</button>
+            <button type="button" class="amount-btn" onclick="setAmount(250000, this)">۲۵۰ هزار</button>
+            <button type="button" class="amount-btn" onclick="setAmount(500000, this)">۵۰۰ هزار</button>
+            <button type="button" class="amount-btn" onclick="setAmount(1000000, this)">۱ میلیون</button>
+            <button type="button" class="amount-btn" onclick="setAmount(2000000, this)">۲ میلیون</button>
+            <button type="button" class="amount-btn" onclick="setAmount(5000000, this)">۵ میلیون</button>
+          </div>
+          <div class="amount-input-wrap">
+            <input type="number" class="form-input" id="donateAmount" name="amount" placeholder="مبلغ دلخواه" min="10000" step="10000" required>
+            <span class="amount-unit">تومان</span>
+          </div>
+        </div>
+
+        <!-- Name -->
+        <div class="form-group">
+          <label class="form-label">نام شما (اختیاری)</label>
+          <input type="text" class="form-input" id="donorName" name="description" placeholder="مثلاً: Khashi" maxlength="30">
+        </div>
+
+        <!-- Email -->
+        <div class="form-group">
+          <label class="form-label">ایمیل (برای رسید پرداخت)</label>
+          <input type="email" class="form-input" name="email" placeholder="example@email.com" required>
+        </div>
+
+        <!-- Mobile -->
+        <div class="form-group">
+          <label class="form-label">شماره موبایل</label>
+          <input type="tel" class="form-input" name="mobile" placeholder="09123456789" pattern="09[0-9]{9}" required>
+        </div>
+
+        <!-- Hidden fields -->
+        <input type="hidden" name="rb_url" value="https://baxparsi.ir/donate-success.html">
+        <input type="hidden" name="sb_url" value="https://baxparsi.ir/donate-failed.html">
+
+        <button type="submit" class="submit-btn">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+          پرداخت با زرین‌پال
+        </button>
+
+        <div class="zarinpal-note">
+          <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3 3.1-3s3.1 1.29 3.1 3v2z"/></svg>
+          پرداخت امن از طریق درگاه زرین‌پال
+        </div>
+      </form>
+    </div>
+
+    <!-- ===== حمایت‌کننده‌های برتر ===== -->
+    <div class="donors-card">
+      <div class="donors-card-title">
+        <div class="donors-card-icon">🏆</div>
+        <span>حمایت‌کننده‌های برتر</span>
+      </div>
+
+      <!-- Podium Top 3 -->
+      <div class="donors-podium">
+        <!-- Silver -->
+        <div class="donor-podium-card silver">
+          <div class="donor-rank-badge">۲</div>
+          <div class="donor-avatar">K</div>
+          <div class="donor-name">Khashi</div>
+          <div class="donor-amount">۲,۵۰۰,۰۰۰ تومان</div>
+        </div>
+
+        <!-- Gold -->
+        <div class="donor-podium-card gold">
+          <div class="donor-crown">👑</div>
+          <div class="donor-rank-badge">۱</div>
+          <div class="donor-avatar">M</div>
+          <div class="donor-name">MrJavan</div>
+          <div class="donor-amount">۵,۰۰۰,۰۰۰ تومان</div>
+        </div>
+
+        <!-- Bronze -->
+        <div class="donor-podium-card bronze">
+          <div class="donor-rank-badge">۳</div>
+          <div class="donor-avatar">B</div>
+          <div class="donor-name">BaxParsi</div>
+          <div class="donor-amount">۱,۵۰۰,۰۰۰ تومان</div>
+        </div>
+      </div>
+
+      <!-- Rest of list -->
+      <div class="donors-list-title">سایر حمایت‌کننده‌ها</div>
+      <div class="donors-list">
+        <div class="donor-row">
+          <div class="donor-row-rank">۴</div>
+          <div class="donor-row-avatar">D</div>
+          <div class="donor-row-info">
+            <div class="donor-row-name">DarkPhoenix</div>
+          </div>
+          <div class="donor-row-amount">۱,۰۰۰,۰۰۰</div>
+        </div>
+        <div class="donor-row">
+          <div class="donor-row-rank">۵</div>
+          <div class="donor-row-avatar">S</div>
+          <div class="donor-row-info">
+            <div class="donor-row-name">ShadowStrike</div>
+          </div>
+          <div class="donor-row-amount">۸۵۰,۰۰۰</div>
+        </div>
+        <div class="donor-row">
+                    <div class="donor-row">
+          <div class="donor-row-rank">۶</div>
+          <div class="donor-row-avatar">N</div>
+          <div class="donor-row-info">
+            <div class="donor-row-name">NightWolf_X</div>
+          </div>
+          <div class="donor-row-amount">۵۰۰,۰۰۰</div>
+        </div>
+        <div class="donor-row">
+          <div class="donor-row-rank">۷</div>
+          <div class="donor-row-avatar">C</div>
+          <div class="donor-row-info">
+            <div class="donor-row-name">CyberGhost</div>
+          </div>
+          <div class="donor-row-amount">۳۵۰,۰۰۰</div>
+        </div>
+        <div class="donor-row">
+          <div class="donor-row-rank">۸</div>
+          <div class="donor-row-avatar">B</div>
+          <div class="donor-row-info">
+            <div class="donor-row-name">BlazeFury</div>
+          </div>
+          <div class="donor-row-amount">۲۵۰,۰۰۰</div>
+        </div>
+        <div class="donor-row">
+          <div class="donor-row-rank">۹</div>
+          <div class="donor-row-avatar">I</div>
+          <div class="donor-row-info">
+            <div class="donor-row-name">IronViper</div>
+          </div>
+          <div class="donor-row-amount">۲۰۰,۰۰۰</div>
+        </div>
+        <div class="donor-row">
+          <div class="donor-row-rank">۱۰</div>
+          <div class="donor-row-avatar">S</div>
+          <div class="donor-row-info">
+            <div class="donor-row-name">StormRider</div>
+          </div>
+          <div class="donor-row-amount">۱۵۰,۰۰۰</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>© تمامی حقوق متعلق به <span class="brand">BaxParsi</span> است &nbsp;|&nbsp; طراحی شده توسط Khashi</p>
+  </footer>
+
+</div>
+
+<script>
+  // Menu Toggle
+  function toggleMenu() {
+    document.getElementById('navLinks').classList.toggle('open');
+    document.getElementById('menuToggle').classList.toggle('open');
+  }
+
+  // Close menu when clicking a link (mobile)
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+      document.getElementById('navLinks').classList.remove('open');
+      document.getElementById('menuToggle').classList.remove('open');
+    });
+  });
+
+  // Close menu when clicking outside
+  document.addEventListener('click', (e) => {
+    const nav = document.querySelector('.navbar');
+    if (!nav.contains(e.target)) {
+      document.getElementById('navLinks').classList.remove('open');
+      document.getElementById('menuToggle').classList.remove('open');
+    }
+  });
+
+  // Set amount from preset buttons
+  function setAmount(amount, btn) {
+    const input = document.getElementById('donateAmount');
+    input.value = amount;
+
+    // Remove selected from all buttons
+    document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+  }
+
+  // Clear selected preset when user types manually
+  document.getElementById('donateAmount').addEventListener('input', function() {
+    document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('selected'));
+  });
+
+  // Format amount with Persian digits on blur
+  document.getElementById('donateAmount').addEventListener('blur', function() {
+    if (this.value) {
+      this.value = Number(this.value).toLocaleString('fa-IR');
+    }
+  });
+
+  // Parse back to number on focus
+  document.getElementById('donateAmount').addEventListener('focus', function() {
+    this.value = this.value.replace(/[,۰-۹]/g, function(c) {
+      if (c === ',') return '';
+      const persianDigits = '۰۱۲۳۴۵۶۷۸۹';
+      const index = persianDigits.indexOf(c);
+      return index !== -1 ? index : c;
+    });
+  });
+
+  // Form validation before submit
+  document.getElementById('donateForm').addEventListener('submit', function(e) {
+    const amount = document.getElementById('donateAmount').value;
+    const amountNum = Number(amount.replace(/,/g, ''));
+
+    if (!amount || amountNum < 10000) {
+      e.preventDefault();
+      alert('لطفاً مبلغ حداقل ۱۰,۰۰۰ تومان وارد کنید.');
+      return;
+    }
+
+    // Make sure the amount field has a clean number for the form
+    document.getElementById('donateAmount').value = amountNum;
+  });
+</script>
+</body>
+</html>
