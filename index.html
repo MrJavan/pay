@@ -853,7 +853,6 @@
 </div>
 
 <script>
-  // ===== آدرس ورکر =====
   const WORKER_URL = 'https://coderhub.ir';
 
   // ===== Menu Toggle =====
@@ -951,17 +950,24 @@
 
       const data = await response.json();
 
-      if (data.status === 100) {
-        const paymentId = data.data.payment_id;
+      console.log('زرین‌پال پاسخ:', data);
+
+      // ✅ ساختار پاسخ API v4
+      if (data.data && data.data.code === 100) {
         const authority = data.data.authority;
-        window.location.href = 'https://payment.zarinpal.com/pg/v4/checkout?payment_id=' + paymentId + '&authority=' + authority;
+        window.location.href = 'https://payment.zarinpal.com/pg/v4/checkout?authority=' + authority;
       } else {
-        showError('❌ ' + (data.status_msg || 'خطا در اتصال به زرین‌پال'));
+        // خطا
+        const errMsg = (data.errors && data.errors && data.errors.message) 
+          || (data.data && data.data.message) 
+          || 'خطا در اتصال به زرین‌پال';
+        showError('❌ ' + errMsg);
         payBtn.disabled = false;
         payBtnText.textContent = 'پرداخت با زرین‌پال';
       }
 
     } catch (err) {
+      console.error('خطای کامل:', err);
       showError('❌ خطا: ' + err.message);
       payBtn.disabled = false;
       payBtnText.textContent = 'پرداخت با زرین‌پال';
