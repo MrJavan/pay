@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
@@ -252,9 +251,7 @@
     line-height: 1.7;
   }
 
-  .form-group {
-    margin-bottom: 18px;
-  }
+  .form-group { margin-bottom: 18px; }
 
   .form-label {
     display: block;
@@ -285,7 +282,6 @@
 
   .form-input::placeholder { color: #6b7290; }
 
-  /* Amount presets */
   .amount-presets {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -319,13 +315,8 @@
     color: #00f2fe;
   }
 
-  .amount-input-wrap {
-    position: relative;
-  }
-
-  .amount-input-wrap .form-input {
-    padding-left: 50px;
-  }
+  .amount-input-wrap { position: relative; }
+  .amount-input-wrap .form-input { padding-left: 50px; }
 
   .amount-unit {
     position: absolute;
@@ -363,7 +354,7 @@
   }
 
   .submit-btn:active { transform: translateY(0); }
-
+  .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
   .submit-btn svg { width: 20px; height: 20px; fill: #fff; }
 
   .zarinpal-note {
@@ -378,6 +369,20 @@
   }
 
   .zarinpal-note svg { width: 14px; height: 14px; fill: #6b7299; }
+
+  .error-msg {
+    display: none;
+    background: rgba(255,59,48,0.1);
+    border: 1px solid rgba(255,59,48,0.3);
+    color: #ff6b6b;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    margin-top: 12px;
+    text-align: center;
+  }
+
+  .error-msg.show { display: block; }
 
   /* ===== TOP DONORS ===== */
   .donors-card {
@@ -419,7 +424,6 @@
     font-size: 22px;
   }
 
-  /* Podium mini */
   .donors-podium {
     display: grid;
     grid-template-columns: 1fr 1.1fr 1fr;
@@ -515,16 +519,11 @@
     direction: ltr;
   }
 
-  .donor-amount {
-    font-size: 12px;
-    font-weight: 600;
-  }
-
+  .donor-amount { font-size: 12px; font-weight: 600; }
   .gold .donor-amount { color: #ffd700; }
   .silver .donor-amount { color: #e2e8f0; }
   .bronze .donor-amount { color: #f59e0b; }
 
-  /* Donors list */
   .donors-list-title {
     font-size: 14px;
     font-weight: 600;
@@ -534,11 +533,7 @@
     border-bottom: 1px solid rgba(255,255,255,0.05);
   }
 
-  .donors-list {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
+  .donors-list { display: flex; flex-direction: column; gap: 8px; }
 
   .donor-row {
     display: flex;
@@ -603,6 +598,17 @@
     font-weight: 600;
     flex-shrink: 0;
   }
+
+  footer {
+    text-align: center;
+    padding: 25px 20px;
+    color: #6b7290;
+    font-size: 13px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    margin-top: 30px;
+  }
+
+  footer .brand { color: #00f2fe; font-weight: 600; }
 
   /* ===== RESPONSIVE ===== */
   @media (max-width: 768px) {
@@ -714,57 +720,48 @@
       </div>
       <p class="donate-card-sub">مبلغ مورد نظر رو انتخاب کنید و از طریق درگاه زرین‌پال پرداخت انجام بدید.</p>
 
-      <form id="donateForm" action="https://www.zarinpal.com/pg/StartTransaction/Merchant/5f2cbfdb-3be6-4e6f-b5dc-f9e94b43236f" method="POST">
-
-        <!-- Amount Presets -->
-        <div class="form-group">
-          <label class="form-label">مبلغ حمایت (تومان)</label>
-          <div class="amount-presets">
-            <button type="button" class="amount-btn" onclick="setAmount(100000, this)">۱۰۰ هزار</button>
-            <button type="button" class="amount-btn" onclick="setAmount(250000, this)">۲۵۰ هزار</button>
-            <button type="button" class="amount-btn" onclick="setAmount(500000, this)">۵۰۰ هزار</button>
-            <button type="button" class="amount-btn" onclick="setAmount(1000000, this)">۱ میلیون</button>
-            <button type="button" class="amount-btn" onclick="setAmount(2000000, this)">۲ میلیون</button>
-            <button type="button" class="amount-btn" onclick="setAmount(5000000, this)">۵ میلیون</button>
-          </div>
-          <div class="amount-input-wrap">
-            <input type="number" class="form-input" id="donateAmount" name="amount" placeholder="مبلغ دلخواه" min="10000" step="10000" required>
-            <span class="amount-unit">تومان</span>
-          </div>
+      <div class="form-group">
+        <label class="form-label">مبلغ حمایت (تومان)</label>
+        <div class="amount-presets">
+          <button type="button" class="amount-btn" onclick="setAmount(100000, this)">۱۰۰ هزار</button>
+          <button type="button" class="amount-btn" onclick="setAmount(250000, this)">۲۵۰ هزار</button>
+          <button type="button" class="amount-btn" onclick="setAmount(500000, this)">۵۰۰ هزار</button>
+          <button type="button" class="amount-btn" onclick="setAmount(1000000, this)">۱ میلیون</button>
+          <button type="button" class="amount-btn" onclick="setAmount(2000000, this)">۲ میلیون</button>
+          <button type="button" class="amount-btn" onclick="setAmount(5000000, this)">۵ میلیون</button>
         </div>
-
-        <!-- Name -->
-        <div class="form-group">
-          <label class="form-label">نام شما (اختیاری)</label>
-          <input type="text" class="form-input" id="donorName" name="description" placeholder="مثلاً: Khashi" maxlength="30">
+        <div class="amount-input-wrap">
+          <input type="number" class="form-input" id="donateAmount" placeholder="مبلغ دلخواه" min="10000" step="10000">
+          <span class="amount-unit">تومان</span>
         </div>
+      </div>
 
-        <!-- Email -->
-        <div class="form-group">
-          <label class="form-label">ایمیل (برای رسید پرداخت)</label>
-          <input type="email" class="form-input" name="email" placeholder="example@email.com" required>
-        </div>
+      <div class="form-group">
+        <label class="form-label">نام شما (اختیاری)</label>
+        <input type="text" class="form-input" id="donorName" placeholder="مثلا: Khashi" maxlength="30">
+      </div>
 
-        <!-- Mobile -->
-        <div class="form-group">
-          <label class="form-label">شماره موبایل</label>
-          <input type="tel" class="form-input" name="mobile" placeholder="09123456789" pattern="09[0-9]{9}" required>
-        </div>
+      <div class="form-group">
+        <label class="form-label">ایمیل (برای رسید پرداخت)</label>
+        <input type="email" class="form-input" id="donateEmail" placeholder="example@email.com">
+      </div>
 
-        <!-- Hidden fields -->
-        <input type="hidden" name="rb_url" value="https://baxparsi.ir/donate-success.html">
-        <input type="hidden" name="sb_url" value="https://baxparsi.ir/donate-failed.html">
+      <div class="form-group">
+        <label class="form-label">شماره موبایل</label>
+        <input type="tel" class="form-input" id="donateMobile" placeholder="09123456789">
+      </div>
 
-        <button type="submit" class="submit-btn">
-          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-          پرداخت با زرین‌پال
-        </button>
+      <button type="button" class="submit-btn" id="payBtn" onclick="startPayment()">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+        <span id="payBtnText">پرداخت با زرین‌پال</span>
+      </button>
 
-        <div class="zarinpal-note">
-          <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3 3.1-3s3.1 1.29 3.1 3v2z"/></svg>
-          پرداخت امن از طریق درگاه زرین‌پال
-        </div>
-      </form>
+      <div class="error-msg" id="errorMsg"></div>
+
+      <div class="zarinpal-note">
+        <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3 3.1-3s3.1 1.29 3.1 3v2z"/></svg>
+        پرداخت امن از طریق درگاه زرین‌پال
+      </div>
     </div>
 
     <!-- ===== حمایت‌کننده‌های برتر ===== -->
@@ -774,9 +771,7 @@
         <span>حمایت‌کننده‌های برتر</span>
       </div>
 
-      <!-- Podium Top 3 -->
       <div class="donors-podium">
-        <!-- Silver -->
         <div class="donor-podium-card silver">
           <div class="donor-rank-badge">۲</div>
           <div class="donor-avatar">K</div>
@@ -784,7 +779,6 @@
           <div class="donor-amount">۲,۵۰۰,۰۰۰ تومان</div>
         </div>
 
-        <!-- Gold -->
         <div class="donor-podium-card gold">
           <div class="donor-crown">👑</div>
           <div class="donor-rank-badge">۱</div>
@@ -793,7 +787,6 @@
           <div class="donor-amount">۵,۰۰۰,۰۰۰ تومان</div>
         </div>
 
-        <!-- Bronze -->
         <div class="donor-podium-card bronze">
           <div class="donor-rank-badge">۳</div>
           <div class="donor-avatar">B</div>
@@ -802,86 +795,17 @@
         </div>
       </div>
 
-      <!-- Rest of list -->
-      <div class="donors-list-title">سایر حمایت‌کننده‌ها</div>
-      <div class="donors-list">
-        <div class="donor-row">
-          <div class="donor-row-rank">۴</div>
-          <div class="donor-row-avatar">D</div>
-          <div class="donor-row-info">
-            <div class="donor-row-name">DarkPhoenix</div>
-          </div>
-          <div class="donor-row-amount">۱,۰۰۰,۰۰۰</div>
-        </div>
-        <div class="donor-row">
-          <div class="donor-row-rank">۵</div>
-          <div class="donor-row-avatar">S</div>
-          <div class="donor-row-info">
-            <div class="donor-row-name">ShadowStrike</div>
-          </div>
-          <div class="donor-row-amount">۸۵۰,۰۰۰</div>
-        </div>
-        <div class="donor-row">
-                    <div class="donor-row">
-          <div class="donor-row-rank">۶</div>
-          <div class="donor-row-avatar">N</div>
-          <div class="donor-row-info">
-            <div class="donor-row-name">NightWolf_X</div>
-          </div>
-          <div class="donor-row-amount">۵۰۰,۰۰۰</div>
-        </div>
-        <div class="donor-row">
-          <div class="donor-row-rank">۷</div>
-          <div class="donor-row-avatar">C</div>
-          <div class="donor-row-info">
-            <div class="donor-row-name">CyberGhost</div>
-          </div>
-          <div class="donor-row-amount">۳۵۰,۰۰۰</div>
-        </div>
-        <div class="donor-row">
-          <div class="donor-row-rank">۸</div>
-          <div class="donor-row-avatar">B</div>
-          <div class="donor-row-info">
-            <div class="donor-row-name">BlazeFury</div>
-          </div>
-          <div class="donor-row-amount">۲۵۰,۰۰۰</div>
-        </div>
-        <div class="donor-row">
-          <div class="donor-row-rank">۹</div>
-          <div class="donor-row-avatar">I</div>
-          <div class="donor-row-info">
-            <div class="donor-row-name">IronViper</div>
-          </div>
-          <div class="donor-row-amount">۲۰۰,۰۰۰</div>
-        </div>
-        <div class="donor-row">
-          <div class="donor-row-rank">۱۰</div>
-          <div class="donor-row-avatar">S</div>
-          <div class="donor-row-info">
-            <div class="donor-row-name">StormRider</div>
-          </div>
-          <div class="donor-row-amount">۱۵۰,۰۰۰</div>
-        </div>
-      </div>
-    </div>
+      <div class="donors-list-title">سایر
+        <script>
+  // ===== تنظیمات =====
+  const MERCHANT_ID = '5f2cbfdb-3be6-4e6f-b5dc-f9e94b43236f'; // ← آیدی واقعی مَرجنتت رو اینجا بذار
 
-  </div>
-
-  <!-- Footer -->
-  <footer>
-    <p>© تمامی حقوق متعلق به <span class="brand">BaxParsi</span> است &nbsp;|&nbsp; طراحی شده توسط Khashi</p>
-  </footer>
-
-</div>
-
-<script>
-  // Menu Toggle
+  // ===== Menu Toggle =====
   function toggleMenu() {
     document.getElementById('navLinks').classList.toggle('open');
     document.getElementById('menuToggle').classList.toggle('open');
   }
 
-  // Close menu when clicking a link (mobile)
   document.querySelectorAll('.nav-links a').forEach(link => {
     link.addEventListener('click', () => {
       document.getElementById('navLinks').classList.remove('open');
@@ -889,7 +813,6 @@
     });
   });
 
-  // Close menu when clicking outside
   document.addEventListener('click', (e) => {
     const nav = document.querySelector('.navbar');
     if (!nav.contains(e.target)) {
@@ -898,52 +821,99 @@
     }
   });
 
-  // Set amount from preset buttons
+  // ===== Amount Presets =====
   function setAmount(amount, btn) {
-    const input = document.getElementById('donateAmount');
-    input.value = amount;
-
-    // Remove selected from all buttons
+    document.getElementById('donateAmount').value = amount;
     document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('selected'));
     btn.classList.add('selected');
   }
 
-  // Clear selected preset when user types manually
   document.getElementById('donateAmount').addEventListener('input', function() {
     document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('selected'));
   });
 
-  // Format amount with Persian digits on blur
-  document.getElementById('donateAmount').addEventListener('blur', function() {
-    if (this.value) {
-      this.value = Number(this.value).toLocaleString('fa-IR');
-    }
-  });
+  // ===== Error Display =====
+  function showError(msg) {
+    const el = document.getElementById('errorMsg');
+    el.textContent = msg;
+    el.classList.add('show');
+  }
 
-  // Parse back to number on focus
-  document.getElementById('donateAmount').addEventListener('focus', function() {
-    this.value = this.value.replace(/[,۰-۹]/g, function(c) {
-      if (c === ',') return '';
-      const persianDigits = '۰۱۲۳۴۵۶۷۸۹';
-      const index = persianDigits.indexOf(c);
-      return index !== -1 ? index : c;
-    });
-  });
+  // ===== Start Payment =====
+  function startPayment() {
+    const amountInput = document.getElementById('donateAmount');
+    const nameInput = document.getElementById('donorName');
+    const emailInput = document.getElementById('donateEmail');
+    const mobileInput = document.getElementById('donateMobile');
+    const payBtn = document.getElementById('payBtn');
+    const payBtnText = document.getElementById('payBtnText');
 
-  // Form validation before submit
-  document.getElementById('donateForm').addEventListener('submit', function(e) {
-    const amount = document.getElementById('donateAmount').value;
-    const amountNum = Number(amount.replace(/,/g, ''));
+    // Clear previous error
+    document.getElementById('errorMsg').classList.remove('show');
 
-    if (!amount || amountNum < 10000) {
-      e.preventDefault();
-      alert('لطفاً مبلغ حداقل ۱۰,۰۰۰ تومان وارد کنید.');
+    const amount = parseInt(amountInput.value.replace(/,/g, ''));
+    const name = nameInput.value.trim();
+    const email = emailInput.value.trim();
+    const mobile = mobileInput.value.trim();
+
+    // --- Validation ---
+    if (!amount || amount < 10000) {
+      showError('⚠️ لطفاً مبلغ حداقل ۱۰,۰۰۰ تومان وارد کنید.');
       return;
     }
 
-    // Make sure the amount field has a clean number for the form
-    document.getElementById('donateAmount').value = amountNum;
-  });
+    if (amount > 100000000) {
+      showError('⚠️ مبلغ حداکثر ۱۰۰,۰۰۰,۰۰۰ تومان می‌تواند باشد.');
+      return;
+    }
+
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      showError('⚠️ لطفاً یک ایمیل معتبر وارد کنید.');
+      return;
+    }
+
+    if (!mobile || !/^09\d{9}$/.test(mobile)) {
+      showError('⚠️ شماره موبایل معتبر وارد کنید (مثال: 09123456789).');
+      return;
+    }
+
+    // --- Disable button while redirecting ---
+    payBtn.disabled = true;
+    payBtnText.textContent = 'در حال انتقال به زرین‌پال...';
+
+    // --- Build native form (no CORS issue) ---
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = 'https://www.zarinpal.com/pg/StartTransaction/' + MERCHANT_ID;
+    form.target = '_self';
+    form.style.display = 'none';
+
+    const fields = {
+      'MerchantID': MERCHANT_ID,
+      'Amount': amount,
+      'Email': email,
+      'Mobile': mobile,
+      'Description': name ? ('حمایت مالی - ' + name) : 'حمایت مالی BaxParsi',
+      'rb_url': window.location.origin + '/donate-success.html',
+      'sb_url': window.location.origin + '/donate-failed.html'
+    };
+
+    for (const key in fields) {
+      const input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = key;
+      input.value = fields[key];
+      form.appendChild(input);
+    }
+
+    document.body.appendChild(form);
+    form.submit();
+    document.body.removeChild(form);
+
+    // Restore button in case redirect fails
+    setTimeout(() => {
+      payBtn.disabled = false;
+      payBtnText.textContent = 'پرداخت با زرین‌پال';
+    }, 3000);
+  }
 </script>
-</body>
-</html>
