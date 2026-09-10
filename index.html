@@ -380,6 +380,7 @@
     font-size: 13px;
     margin-top: 12px;
     text-align: center;
+    line-height: 1.8;
   }
 
   .error-msg.show { display: block; }
@@ -731,14 +732,14 @@
           <button type="button" class="amount-btn" onclick="setAmount(5000000, this)">۵ میلیون</button>
         </div>
         <div class="amount-input-wrap">
-          <input type="number" class="form-input" id="donateAmount" placeholder="مبلغ دلخواه" min="10000" step="10000">
+          <input type="number" class="form-input" id="donateAmount" placeholder="مبلغ دلخواه" min="1000" step="1000">
           <span class="amount-unit">تومان</span>
         </div>
       </div>
 
       <div class="form-group">
         <label class="form-label">نام شما (اختیاری)</label>
-        <input type="text" class="form-input" id="donorName" placeholder="مثلا: Khashi" maxlength="30">
+        <input type="text" class="form-input" id="donorName" placeholder="مثلاً: Khashi" maxlength="30">
       </div>
 
       <div class="form-group">
@@ -795,10 +796,65 @@
         </div>
       </div>
 
-      <div class="donors-list-title">سایر
-        <script>
-  // ===== تنظیمات =====
-  const MERCHANT_ID = '5f2cbfdb-3be6-4e6f-b5dc-f9e94b43236f'; // ← آیدی واقعی مَرجنتت رو اینجا بذار
+      <div class="donors-list-title">سایر حمایت‌کننده‌ها</div>
+      <div class="donors-list">
+        <div class="donor-row">
+          <div class="donor-row-rank">۴</div>
+          <div class="donor-row-avatar">D</div>
+          <div class="donor-row-info"><div class="donor-row-name">DarkPhoenix</div></div>
+          <div class="donor-row-amount">۱,۰۰۰,۰۰۰</div>
+        </div>
+        <div class="donor-row">
+          <div class="donor-row-rank">۵</div>
+          <div class="donor-row-avatar">S</div>
+          <div class="donor-row-info"><div class="donor-row-name">ShadowStrike</div></div>
+          <div class="donor-row-amount">۸۵۰,۰۰۰</div>
+        </div>
+        <div class="donor-row">
+          <div class="donor-row-rank">۶</div>
+          <div class="donor-row-avatar">N</div>
+          <div class="donor-row-info"><div class="donor-row-name">NightWolf_X</div></div>
+          <div class="donor-row-amount">۵۰۰,۰۰۰</div>
+        </div>
+        <div class="donor-row">
+          <div class="donor-row-rank">۷</div>
+          <div class="donor-row-avatar">C</div>
+          <div class="donor-row-info"><div class="donor-row-name">CyberGhost</div></div>
+          <div class="donor-row-amount">۳۵۰,۰۰۰</div>
+        </div>
+        <div class="donor-row">
+          <div class="donor-row-rank">۸</div>
+          <div class="donor-row-avatar">B</div>
+          <div class="donor-row-info"><div class="donor-row-name">BlazeFury</div></div>
+          <div class="donor-row-amount">۲۵۰,۰۰۰</div>
+        </div>
+        <div class="donor-row">
+          <div class="donor-row-rank">۹</div>
+          <div class="donor-row-avatar">I</div>
+          <div class="donor-row-info"><div class="donor-row-name">IronViper</div></div>
+          <div class="donor-row-amount">۲۰۰,۰۰,۰۰۰</div>
+        </div>
+        <div class="donor-row">
+          <div class="donor-row-rank">۱۰</div>
+          <div class="donor-row-avatar">S</div>
+          <div class="donor-row-info"><div class="donor-row-name">StormRider</div></div>
+          <div class="donor-row-amount">۱۵۰,۰۰۰</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>© تمامی حقوق متعلق به <span class="brand">BaxParsi</span> است &nbsp;|&nbsp; طراحی شده توسط Khashi</p>
+  </footer>
+
+</div>
+
+<script>
+  // ===== آدرس ورکر =====
+  const WORKER_URL = 'https://pay.mrjavan.workers.dev';
 
   // ===== Menu Toggle =====
   function toggleMenu() {
@@ -839,8 +895,12 @@
     el.classList.add('show');
   }
 
+  function hideError() {
+    document.getElementById('errorMsg').classList.remove('show');
+  }
+
   // ===== Start Payment =====
-  function startPayment() {
+  async function startPayment() {
     const amountInput = document.getElementById('donateAmount');
     const nameInput = document.getElementById('donorName');
     const emailInput = document.getElementById('donateEmail');
@@ -848,8 +908,7 @@
     const payBtn = document.getElementById('payBtn');
     const payBtnText = document.getElementById('payBtnText');
 
-    // Clear previous error
-    document.getElementById('errorMsg').classList.remove('show');
+    hideError();
 
     const amount = parseInt(amountInput.value.replace(/,/g, ''));
     const name = nameInput.value.trim();
@@ -857,63 +916,57 @@
     const mobile = mobileInput.value.trim();
 
     // --- Validation ---
-    if (!amount || amount < 10000) {
-      showError('⚠️ لطفاً مبلغ حداقل ۱۰,۰۰۰ تومان وارد کنید.');
+    if (!amount || amount < 1000) {
+      showError('⚠️ لطفاً مبلغ حداقل ۱,۰۰۰ تومان وارد کنید.');
       return;
     }
-
     if (amount > 100000000) {
       showError('⚠️ مبلغ حداکثر ۱۰۰,۰۰۰,۰۰۰ تومان می‌تواند باشد.');
       return;
     }
-
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       showError('⚠️ لطفاً یک ایمیل معتبر وارد کنید.');
       return;
     }
-
     if (!mobile || !/^09\d{9}$/.test(mobile)) {
       showError('⚠️ شماره موبایل معتبر وارد کنید (مثال: 09123456789).');
       return;
     }
 
-    // --- Disable button while redirecting ---
+    // --- Disable button ---
     payBtn.disabled = true;
-    payBtnText.textContent = 'در حال انتقال به زرین‌پال...';
+    payBtnText.textContent = 'در حال اتصال به زرین‌پال...';
 
-    // --- Build native form (no CORS issue) ---
-    const form = document.createElement('form');
-    form.method = 'POST';
-    form.action = 'https://www.zarinpal.com/pg/StartTransaction/' + MERCHANT_ID;
-    form.target = '_self';
-    form.style.display = 'none';
+    try {
+      const response = await fetch(WORKER_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          amount: amount,
+          email: email,
+          mobile: mobile,
+          name: name
+        })
+      });
 
-    const fields = {
-      'MerchantID': MERCHANT_ID,
-      'Amount': amount,
-      'Email': email,
-      'Mobile': mobile,
-      'Description': name ? ('حمایت مالی - ' + name) : 'حمایت مالی BaxParsi',
-      'rb_url': window.location.origin + '/donate-success.html',
-      'sb_url': window.location.origin + '/donate-failed.html'
-    };
+      const data = await response.json();
 
-    for (const key in fields) {
-      const input = document.createElement('input');
-      input.type = 'hidden';
-      input.name = key;
-      input.value = fields[key];
-      form.appendChild(input);
-    }
+      if (data.status === 100) {
+        const paymentId = data.data.payment_id;
+        const authority = data.data.authority;
+        window.location.href = 'https://payment.zarinpal.com/pg/v4/checkout?payment_id=' + paymentId + '&authority=' + authority;
+      } else {
+        showError('❌ ' + (data.status_msg || 'خطا در اتصال به زرین‌پال'));
+        payBtn.disabled = false;
+        payBtnText.textContent = 'پرداخت با زرین‌پال';
+      }
 
-    document.body.appendChild(form);
-    form.submit();
-    document.body.removeChild(form);
-
-    // Restore button in case redirect fails
-    setTimeout(() => {
+    } catch (err) {
+      showError('❌ خطا: ' + err.message);
       payBtn.disabled = false;
       payBtnText.textContent = 'پرداخت با زرین‌پال';
-    }, 3000);
+    }
   }
 </script>
+</body>
+</html>
