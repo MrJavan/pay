@@ -855,7 +855,6 @@
 <script>
   const WORKER_URL = 'https://coderhub.ir';
 
-  // ===== Menu Toggle =====
   function toggleMenu() {
     document.getElementById('navLinks').classList.toggle('open');
     document.getElementById('menuToggle').classList.toggle('open');
@@ -876,7 +875,6 @@
     }
   });
 
-  // ===== Amount Presets =====
   function setAmount(amount, btn) {
     document.getElementById('donateAmount').value = amount;
     document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('selected'));
@@ -887,7 +885,6 @@
     document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('selected'));
   });
 
-  // ===== Error Display =====
   function showError(msg) {
     const el = document.getElementById('errorMsg');
     el.textContent = msg;
@@ -898,7 +895,6 @@
     document.getElementById('errorMsg').classList.remove('show');
   }
 
-  // ===== Start Payment =====
   async function startPayment() {
     const amountInput = document.getElementById('donateAmount');
     const nameInput = document.getElementById('donorName');
@@ -914,7 +910,6 @@
     const email = emailInput.value.trim();
     const mobile = mobileInput.value.trim();
 
-    // --- Validation ---
     if (!amount || amount < 1000) {
       showError('⚠️ لطفاً مبلغ حداقل ۱,۰۰۰ تومان وارد کنید.');
       return;
@@ -932,7 +927,6 @@
       return;
     }
 
-    // --- Disable button ---
     payBtn.disabled = true;
     payBtnText.textContent = 'در حال اتصال به زرین‌پال...';
 
@@ -952,14 +946,15 @@
 
       console.log('زرین‌پال پاسخ:', data);
 
-      // ✅ ساختار پاسخ API v4
       if (data.data && data.data.code === 100) {
         const authority = data.data.authority;
-        window.location.href = 'https://payment.zarinpal.com/pg/v4/checkout?authority=' + authority;
+
+        // ✅ آدرس صحیح ریدایرکت
+        window.location.href = 'https://www.zarinpal.com/pg/StartPay/' + authority;
+
       } else {
-        // خطا
-        const errMsg = (data.errors && data.errors && data.errors.message) 
-          || (data.data && data.data.message) 
+        const errMsg = (data.errors && data.errors && data.errors.message)
+          || (data.data && data.data.message)
           || 'خطا در اتصال به زرین‌پال';
         showError('❌ ' + errMsg);
         payBtn.disabled = false;
